@@ -25,11 +25,11 @@ export class OffersService {
     return this.offerRepository.findOne({ where });
   }
 
-  update(id: number, updateOfferDto: UpdateOfferDto) {
-    return `This action updates a #${id} offer`;
+  updateOne(where: FindOptionsWhere<Offer>, updateOfferDto: UpdateOfferDto) {
+    return this.offerRepository.update(where, updateOfferDto);
   }
 
-  removeOne(id: number) {
-    return `This action removes a #${id} offer`;
+  removeOne(where: FindOptionsWhere<Offer>) {
+    return this.offerRepository.delete(where);
   }
 }
