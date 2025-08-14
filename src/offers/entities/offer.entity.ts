@@ -1,25 +1,15 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity, ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { Wish } from '../../wishes/entities/wish.entity';
+import { BaseEntity } from '../../common/base-entity';
+import { IsNumber } from 'class-validator';
 
 @Entity()
-export class Offer {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @Column('decimal', { precision: 10, scale: 2 })
+export class Offer extends BaseEntity {
+  @Column()
+  @IsNumber({
+    maxDecimalPlaces: 2,
+  })
   amount: number;
 
   @Column({ default: false })
@@ -29,5 +19,5 @@ export class Offer {
   user: User;
 
   @ManyToOne(() => Wish, (wish) => wish.offers)
-  wish: Wish;
+  item: Wish;
 }

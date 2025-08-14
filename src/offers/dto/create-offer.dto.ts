@@ -1,23 +1,15 @@
-import {
-  IsBoolean,
-  IsNumber,
-  IsPositive,
-  ValidateNested,
-} from 'class-validator';
-import { Type } from 'class-transformer';
+import { IsBoolean, IsNumber, IsPositive } from 'class-validator';
 
 export class CreateOfferDto {
-  @IsNumber()
+  @IsNumber({
+    maxDecimalPlaces: 2,
+  })
   @IsPositive()
   amount: number;
 
   @IsBoolean()
   hidden?: boolean;
 
-  @ValidateNested()
-  @Type(() => Object)
-  user: { id: number };
-
-  @Type(() => Object)
-  item: { id: number };
+  @IsNumber()
+  itemId: number;
 }

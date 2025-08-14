@@ -1,6 +1,6 @@
 import { IsEmail, IsOptional, IsString, IsUrl, Length } from 'class-validator';
 
-export class CreateUserDto {
+export class SignUpDto {
   @IsString()
   @Length(2, 30)
   username: string;
@@ -8,11 +8,11 @@ export class CreateUserDto {
   @IsString()
   @IsOptional()
   @Length(2, 200)
-  about: string = 'Пока ничего не рассказал о себе';
+  about: string;
 
   @IsUrl()
   @IsOptional()
-  avatar?: string = 'https://i.pravatar.cc/300';
+  avatar: string;
 
   @IsEmail()
   email: string;

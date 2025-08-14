@@ -1,21 +1,11 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
-import { Wishlist } from '../../wishlists/entities/wishlist.entity';
 import { Offer } from '../../offers/entities/offer.entity';
+import { BaseEntity } from '../../common/base-entity';
+import { IsDecimal, IsNumber } from 'class-validator';
 
 @Entity()
-export class Wish {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Wish extends BaseEntity {
   @Column({ length: 250 })
   name: string;
 
@@ -25,30 +15,28 @@ export class Wish {
   @Column()
   image: string;
 
-  @Column('decimal', { precision: 10, scale: 2 })
+  @Column()
+  @IsNumber({
+    maxDecimalPlaces: 2,
+  })
   price: number;
 
-  @Column('decimal', { precision: 10, scale: 2 })
+  @Column()
+  @IsNumber({
+    maxDecimalPlaces: 2,
+  })
   raised: number;
 
   @Column({ length: 1024 })
   description: string;
 
-  @Column('int', { default: 0 })
+  @Column({ default: 0 })
+  @IsDecimal()
   copied: number;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 
   @ManyToOne(() => User, (user) => user.wishes)
   owner: User;
 
-  @ManyToOne(() => Wishlist, (wishlist) => wishlist.wishes)
-  wishlists: Wishlist[];
-
-  @OneToMany(() => Offer, (offer) => offer.wish)
+  @OneToMany(() => Offer, (offer) => offer.item)
   offers: Offer[];
 }
