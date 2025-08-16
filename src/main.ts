@@ -1,8 +1,23 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { ConfigService } from '@nestjs/config';
+import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.PORT ?? 3000);
+  const configService = app.get(ConfigService);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const port = configService.get('port') || 3000;
+  app.enableCors();
+  app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      skipMissingProperties: true,
+    }),
+  );
+  await app.listen(port);
 }
 bootstrap();

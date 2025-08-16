@@ -9,6 +9,7 @@ describe('WishlistsService', () => {
       providers: [WishlistsService],
     }).compile();
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     service = module.get<WishlistsService>(WishlistsService);
   });
 

@@ -11,6 +11,6 @@ export const config = () => ({
     password: process.env.DB_PASSWORD,
     entities: [__dirname + '/../**/*.entity.{js,ts}'],
     synchronize: true,
-    logging: false,
+    logging: true,
   },
 });

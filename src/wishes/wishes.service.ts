@@ -64,6 +64,7 @@ export class WishesService {
   async removeOne(wishId: number, user): Promise<Wish> {
     const wish = await this.findOne(wishId);
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (user && wish.owner.id !== user.id) {
       throw new BadRequestException('No gift found');
     }
@@ -79,6 +80,7 @@ export class WishesService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id, createdAt, updatedAt, copied, raised, offers, ...dataWish } =
       await this.findOne(wishId);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const owner = await this.userService.findOneById(user.id);
     await this.wishRepository.update(id, { copied: copied + 1 });
     return this.wishRepository.save({

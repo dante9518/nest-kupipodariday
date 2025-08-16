@@ -88,6 +88,3 @@ export class WishlistService {
     return wishlist;
   }
 }
-
-export class WishlistsService {
-}

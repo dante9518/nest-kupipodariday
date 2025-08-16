@@ -1,12 +1,12 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateOfferDto } from './dto/create-offer.dto';
-import { UpdateOfferDto } from './dto/update-offer.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Offer } from './entities/offer.entity';
-import { FindOptionsWhere, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { UsersService } from '../users/users.service';
 import { WishesService } from '../wishes/wishes.service';
 import { UpdateWishDto } from '../wishes/dto/update-wish.dto';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class OffersService {
@@ -47,8 +47,7 @@ export class OffersService {
       relations: ['user', 'item'],
     });
 
-    offers.forEach((offer) => delete offer.user.password);
-    return offers;
+    return plainToInstance(Offer, offers, { excludeExtraneousValues: true });
   }
 
   async findOne(id: number): Promise<Offer> {

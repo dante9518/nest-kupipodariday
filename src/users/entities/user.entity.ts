@@ -4,6 +4,7 @@ import { Wishlist } from '../../wishlists/entities/wishlist.entity';
 import { Offer } from '../../offers/entities/offer.entity';
 import { BaseEntity } from '../../common/base-entity';
 import { IsEmail, IsUrl } from 'class-validator';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class User extends BaseEntity {
@@ -30,6 +31,7 @@ export class User extends BaseEntity {
   email: string;
 
   @Column()
+  @Exclude()
   password: string;
 
   @OneToMany(() => Wish, (wish) => wish.owner)

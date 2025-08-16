@@ -11,6 +11,8 @@ import { config } from './configs/config';
 import { DatabaseConfig } from './configs/database.config';
 import { loggerConfig } from './configs/logger.config';
 import { WinstonModule } from 'nest-winston';
+import { AuthModule } from './auth/auth.module';
+import { HashModule } from './hash/hash.module';
 
 @Module({
   imports: [
@@ -27,6 +29,8 @@ import { WinstonModule } from 'nest-winston';
     WishesModule,
     WishlistsModule,
     OffersModule,
+    AuthModule,
+    HashModule,
   ],
   controllers: [AppController],
   providers: [AppService],

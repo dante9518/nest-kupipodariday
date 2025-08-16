@@ -1,10 +1,4 @@
-import {
-  IsNumber,
-  IsString,
-  IsUrl,
-  Length,
-  Min,
-} from 'class-validator';
+import { IsNumber, IsString, IsUrl, Length, Min } from 'class-validator';
 
 export class CreateWishDto {
   @IsString()
